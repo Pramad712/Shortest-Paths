@@ -83,18 +83,18 @@ def draw_graph(window: pygame.Surface, graph: list[list[Node]]):
 def write_instruction(window: pygame.Surface, text: str, icon_string: str = None):
     clear_message(window)
 
-    icon_size = 20 if icon_string is not None else 0
+    icon_length, icon_height = (NODE_LENGTH, NODE_HEIGHT) if icon_string is not None else (0, 0)
 
     text = FONT.render(text, 1, TEXT_COLOR)
-    window.blit(text, (LENGTH / 2 - (text.get_width() + icon_size * 2) / 2, (TOP_OFFSET - text.get_height()) / 2))
+    window.blit(text, (LENGTH / 2 - (text.get_width() + icon_length * 2) / 2, (TOP_OFFSET - text.get_height()) / 2))
 
-    if icon_size == 0:
+    if icon_length == icon_height == 0:
         pygame.display.update()
         return
 
     icon = pygame.Rect(
-        (LENGTH / 2 + (text.get_width() + icon_size * 2) / 2 - icon_size, TOP_OFFSET // 2 - icon_size // 2),
-        (icon_size, icon_size))
+        (LENGTH / 2 + (text.get_width() + icon_length * 2) / 2 - icon_length, TOP_OFFSET // 2 - icon_height // 2),
+        (icon_length, icon_height))
 
     color = None
 
