@@ -7,11 +7,10 @@ def solve(adjacent: FunctionType, graph: list[list[Node]], start_node: Node, end
 
     minimum_path_per_node = {node: float("inf") for row in graph for node in row}
     minimum_path_per_node[start_node] = float("nan")
-    minimum_path_per_node[end_node] = False
 
     best_path = []
 
-    def hueristic(node: Node):
+    def heuristic(node: Node):
         return abs(end_node.x - node.x) ** 2 + abs(end_node.y - node.y) ** 2
 
     def a_star(node: Node, path: set[Node], path_list: list[Node], weight: int = 0):
@@ -23,7 +22,7 @@ def solve(adjacent: FunctionType, graph: list[list[Node]], start_node: Node, end
             nonlocal best_path
             best_path = path_list.copy()
 
-            return
+            return "FOUND"
 
         if weight != 0:
             path = path.copy()
@@ -34,29 +33,35 @@ def solve(adjacent: FunctionType, graph: list[list[Node]], start_node: Node, end
 
             minimum_path_per_node[node] = weight
 
-        best_heuristic = float("inf")
-        best_nodes = []
+        heuristic_blocks = {}
 
         for adjacent_node, edge_weight in adjacent(node, graph):
             if adjacent_node in path:
                 continue
 
-            current_hueristic = hueristic(adjacent_node)
+            current_heuristic = heuristic(adjacent_node)
 
-            if current_hueristic < best_heuristic:
-                best_heuristic = current_hueristic
-                best_nodes = [(adjacent_node, edge_weight)]
+            try:
+                heuristic_blocks[current_heuristic].append((adjacent_node, edge_weight))
 
-            elif current_hueristic == best_heuristic:
-                best_nodes.append((adjacent_node, edge_weight))
+            except KeyError:
+                heuristic_blocks[current_heuristic] = [(adjacent_node, edge_weight)]
 
-        for adjacent_node, edge_weight in best_nodes:
-            if weight + edge_weight < minimum_path_per_node[adjacent_node] or minimum_path_per_node[adjacent_node] is False:
-                a_star(adjacent_node, path, path_list, weight + edge_weight)
+        heuristic_blocks = sorted(heuristic_blocks.items())
 
-    a_star(start_node, set(), [])
+        for _, nodes in heuristic_blocks:
+            for adjacent_node, edge_weight in nodes:
+                found = False
 
-    if minimum_path_per_node[end_node] is not False:
+                if weight + edge_weight < minimum_path_per_node[adjacent_node]:
+                    found = max(found, bool(a_star(adjacent_node, path, path_list, weight + edge_weight)))
+
+                if found:
+                    return "FOUND"
+
+    found = a_star(start_node, set(), [])
+
+    if found:
         return best_path, minimum_path_per_node[end_node]
 
     else:
