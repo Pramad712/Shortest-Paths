@@ -3,6 +3,7 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 # Dependencies
 • Python 3.10
+
 • Pygame to make the GUI.
 
 # Known Bugs
