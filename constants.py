@@ -15,16 +15,16 @@ NODE_LENGTH, NODE_HEIGHT = (LENGTH - LEFT_OFFSET - RIGHT_OFFSET) // GRAPH_LENGTH
 BUTTON_LENGTH, BUTTON_HEIGHT = 120, 32
 
 EMPTY_COLOR = (0, 0, 0)
-CELL_COLOR = (0, 0, 0) # Cyan
-WALL_COLOR = (255, 91, 35)  # Neon Orange
+CELL_COLOR = (0, 0, 0)  # Cyan
+WALL_COLOR = (255, 180, 40)  # Gold
 START_COLOR, END_COLOR = (0, 255, 0), (255, 0, 0)  # Green and Red respectively
 
 BORDER_COLOR = (255, 255, 255)  # White
 
-BUTTON_COLOR = (255, 0, 0) # Also Red
+BUTTON_COLOR = (255, 0, 0)  # Also Red
 TEXT_COLOR = (255, 255, 255)  # White
 
-PATH_COLOR = (0, 0, 255)
+PATH_COLOR = (0, 0, 255)  # Blue
 
 pygame.font.init()
 
