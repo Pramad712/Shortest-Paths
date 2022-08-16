@@ -1,4 +1,5 @@
 import pygame
+import random
 from types import SimpleNamespace
 from constants import *
 
@@ -15,35 +16,6 @@ class Node(SimpleNamespace):
 
 def create_graph():
     return [[Node(x=x, y=y, type="cell") for x in range(GRAPH_LENGTH)] for y in range(GRAPH_HEIGHT)]
-
-def adjacent(node: Node, graph: list[list[Node]]):
-    adjacent_nodes = []
-
-    if node.y > 0 and graph[node.y - 1][node.x].type != "wall":
-        adjacent_nodes.append((graph[node.y - 1][node.x], 1))
-
-    if node.x < GRAPH_LENGTH - 1 and node.y > 0 and graph[node.y - 1][node.x + 1].type != "wall":
-        adjacent_nodes.append((graph[node.y - 1][node.x + 1], DIAGONAL_LENGTH))
-
-    if node.x < GRAPH_LENGTH - 1 and graph[node.y][node.x + 1].type != "wall":
-        adjacent_nodes.append((graph[node.y][node.x + 1], 1))
-
-    if node.x < GRAPH_LENGTH - 1 and node.y < GRAPH_HEIGHT - 1 and graph[node.y + 1][node.x + 1].type != "wall":
-        adjacent_nodes.append((graph[node.y + 1][node.x + 1], DIAGONAL_LENGTH))
-
-    if node.y < GRAPH_HEIGHT - 1 and graph[node.y + 1][node.x].type != "wall":
-        adjacent_nodes.append((graph[node.y + 1][node.x], 1))
-
-    if node.x > 0 and node.y < GRAPH_HEIGHT - 1 and graph[node.y + 1][node.x - 1].type != "wall":
-        adjacent_nodes.append((graph[node.y + 1][node.x - 1], DIAGONAL_LENGTH))
-
-    if node.x > 0 and graph[node.y][node.x - 1].type != "wall":
-        adjacent_nodes.append((graph[node.y][node.x - 1], 1))
-
-    if node.x > 0 and node.y > 0 and graph[node.y - 1][node.x - 1].type != "wall":
-        adjacent_nodes.append((graph[node.y - 1][node.x - 1], DIAGONAL_LENGTH))
-
-    return adjacent_nodes
 
 def draw_graph(window: pygame.Surface, graph: list[list[Node]]):
     for row_index, row in enumerate(graph):
@@ -67,9 +39,6 @@ def draw_graph(window: pygame.Surface, graph: list[list[Node]]):
                 case "end":
                     color = END_COLOR
 
-                case "path":
-                    color = PATH_COLOR
-
             pygame.draw.rect(window, color, pygame.Rect((x, y), (NODE_LENGTH, NODE_HEIGHT)))
 
     for y_coordinate in range(TOP_OFFSET, HEIGHT - BOTTOM_OFFSET + 1, NODE_HEIGHT):
@@ -92,9 +61,7 @@ def write_instruction(window: pygame.Surface, text: str, icon_string: str = None
         pygame.display.update()
         return
 
-    icon = pygame.Rect(
-        (LENGTH / 2 + (text.get_width() + icon_length * 2) / 2 - icon_length, TOP_OFFSET // 2 - icon_height // 2),
-        (icon_length, icon_height))
+    icon = pygame.Rect((LENGTH / 2 + (text.get_width() + icon_length * 2) / 2 - icon_length, TOP_OFFSET // 2 - icon_height // 2), (icon_length, icon_height))
 
     color = None
 
@@ -128,11 +95,13 @@ def draw_button(window: pygame.Surface, text: str):
     return button
 
 def clear_button(window: pygame.Surface):
-    pygame.draw.rect(window, EMPTY_COLOR, pygame.Rect((0, HEIGHT - BOTTOM_OFFSET + 1), (LENGTH, BOTTOM_OFFSET - 1))) # The 1 excludes the line on the bottom of the graph.
+    pygame.draw.rect(window, EMPTY_COLOR, pygame.Rect((0, HEIGHT - BOTTOM_OFFSET + 1), (LENGTH, BOTTOM_OFFSET - 1)))  # The 1 excludes the line on the bottom of the graph.
     pygame.display.update()
 
-def draw_path(window: pygame.Surface, path: tuple[list[Node], int], graph: list[list[Node]]):
-    for node in path[0]:
-        graph[node.y][node.x].type = "path"
+def draw_node(window: pygame.Surface, node: Node, color: tuple[int] = PROCESSING_NODE_COLOR):
+    pygame.draw.rect(window, color, pygame.Rect((LEFT_OFFSET + node.x * NODE_LENGTH, TOP_OFFSET + node.y * NODE_HEIGHT), (NODE_LENGTH, NODE_HEIGHT)))
+    pygame.display.update()
 
-    draw_graph(window, graph)
+def draw_path(window: pygame.Surface, path: tuple[list[Node], int]):
+    for node in path[0][1: -1]: # We want to ignore the total edge weight and the start and end positions.
+        draw_node(window, node, PATH_COLOR)
