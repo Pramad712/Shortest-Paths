@@ -14,8 +14,13 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 Key:
 Green: Start Position
+
 Red: End Position
+
 Gold: Wall
+
 Orange: Nodes that the program processed, but it thinks they aren't in the shortest path.
+
 Blue: Nodes that are in the shortest path.
+
 Length: A decimal/integer that shows the distance between the shortest path between the start and end nodes that avoids the walls. Going a step north, east, south, or west has a distance of one, while going 1 unit north-east, north-west, south-east, or south-west has a cost of sqrt(2).
