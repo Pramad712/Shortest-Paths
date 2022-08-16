@@ -1,5 +1,4 @@
 import pygame
-from constants import *
 from graph import *
 from a_star import solve
 
@@ -11,7 +10,7 @@ def main():
         graph = create_graph()
         draw_graph(window, graph)
 
-        write_instruction(window, "Select the Start Position", "start")
+        write_instruction(window, "Click on the Start Position", "start")
         start_node = None
 
         while start_node is None:
@@ -19,7 +18,7 @@ def main():
                 if event.type == pygame.QUIT:
                     exit()
 
-                elif event.type == pygame.MOUSEBUTTONUP:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
 
                     if LEFT_OFFSET < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET < y < HEIGHT - BOTTOM_OFFSET:
@@ -32,7 +31,7 @@ def main():
 
             draw_graph(window, graph)
 
-        write_instruction(window, "Select the End Position", "end")
+        write_instruction(window, "Click on the End Position", "end")
         end_node = None
 
         while end_node is None:
@@ -40,7 +39,7 @@ def main():
                 if event.type == pygame.QUIT:
                     exit()
 
-                elif event.type == pygame.MOUSEBUTTONUP:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
 
                     if LEFT_OFFSET < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET < y < HEIGHT - BOTTOM_OFFSET:
@@ -56,7 +55,7 @@ def main():
 
         button = draw_button(window, "Done!")
 
-        write_instruction(window, "Select the Walls", "wall")
+        write_instruction(window, "Draw the Walls", "wall")
         done, mouse_motion_on = False, False
 
         while not done:
@@ -83,20 +82,21 @@ def main():
                         break
 
                     else:
+                        # After you let go of your mouse, you have to click again to draw the streak of walls
                         mouse_motion_on = False
 
             draw_graph(window, graph)
 
         clear_button(window)
 
-        path = solve(adjacent, graph, start_node, end_node)
+        path = solve(window, graph, start_node, end_node)
 
         if path == "INVALID":
             write_instruction(window, "No Path Found")
 
         else:
             write_instruction(window, f"Path Found! Length: {path[1]}")
-            draw_path(window, path, graph)
+            draw_path(window, path)
 
         button = draw_button(window, "Restart")
         done = False
