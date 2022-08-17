@@ -3,7 +3,8 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 ## Dependencies
 • Python 3.10
-• Pygame 2.1.3dev4 to make the GUI.
+
+• Pygame 2.1 to make the GUI.
 
 ## Known Bugs
 • Since my code uses the A* Pathfinding Algorithm which involves hueristics, it sometimes gives paths that are very close to being optimal. Only one out of ~twenty-five times it gives dumb solutions, but only on completely random graphs.
