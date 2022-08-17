@@ -1,18 +1,18 @@
-## Shortest Paths
+# Shortest Paths
 Finds the shortest path on a grid between two nodes (given by the user). The user also puts obstacles which the path must not go through (but can go in between to walls ...).
 
-# Dependencies
+## Dependencies
 • Python 3.10
 • Pygame 2.1.3dev4 to make the GUI.
 
-# Known Bugs
+## Known Bugs
 • Since my code uses the A* Pathfinding Algorithm which involves hueristics, it sometimes gives paths that are very close to being optimal. Only one out of ~twenty-five times it gives dumb solutions, but only on completely random graphs.
 • All other bugs would be due to one of my dependencies (I didn't find any of these before).
 
-## Example Solve
+# Example Solve
 ![pathfinding_algorithms_project_example_solve](https://user-images.githubusercontent.com/77818951/185001752-8ae6cc3c-aaba-40ed-8c2d-2783c7da71aa.png)
 
-#Key:
+Key:
 Green: Start Position
 
 Red: End Position
