@@ -6,7 +6,7 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 • Pygame 2.1 to make the GUI.
 
-# Known Bugs
+# Bugs
 • Since my code uses the A* pathfinding algorithm which involves hueristics, it sometimes gives paths that are very close to being optimal. 
 
 • If there is no path, then the program would take a really long time to run. This is because it would have to brute-force all paths to find a working solution, becoming as slow as Djikstra's algorithm.
