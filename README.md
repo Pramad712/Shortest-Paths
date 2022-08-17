@@ -7,6 +7,7 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 ## Known Bugs
 • Since my code uses the A* Pathfinding Algorithm which involves hueristics, it sometimes gives paths that are very close to being optimal. Only one out of ~twenty-five times it gives dumb solutions, but only on completely random graphs.
+
 • All other bugs would be due to one of my dependencies (I didn't find any of these before).
 
 # Example Solve
