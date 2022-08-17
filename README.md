@@ -18,6 +18,7 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 
 Key:
+
 Green: Start Position
 
 Red: End Position
