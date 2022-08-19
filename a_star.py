@@ -86,6 +86,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
     minimum_path_per_node = {node: float("inf") for row in graph for node in row}
     minimum_path_per_node[start_node] = float("nan")
 
+    visited = set()
     best_path = []
 
     def heuristic(node: Node):
@@ -95,6 +96,9 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
 
     def a_star(previous_node: Node, node: Node, path: set[Node], path_list: list[Node], weight: int = None):
         nonlocal minimum_path_per_node
+        nonlocal visited
+
+        visited.add(node)
 
         path = path.copy()
         path.add(node)
@@ -121,7 +125,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
         distances = []
 
         for adjacent_node, edge_weight in next_nodes(previous_node, node):
-            if (adjacent_node in path) or (weight + edge_weight >= minimum_path_per_node.get(adjacent_node)):
+            if (adjacent_node in visited) or (weight + edge_weight >= minimum_path_per_node.get(adjacent_node)):
                 continue
 
             current_heuristic = heuristic(adjacent_node)
@@ -130,6 +134,9 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
         distances.sort(key=lambda distance: distance[0] + distance[1])
 
         for edge_weight, _, adjacent_node in distances:
+            if adjacent_node in visited:
+                continue
+
             found = a_star(node, adjacent_node, path, path_list, weight + edge_weight)
 
             if found:
