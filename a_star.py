@@ -40,31 +40,30 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
         nodes = []
 
         try:
-            if 0 <= node.y + previous_y_change and 0 <= node.x + previous_x_change and graph[node.y + previous_y_change][node.x + previous_x_change].type != "wall":
+            if 0 <= node.y + previous_y_change <= GRAPH_HEIGHT and 0 <= node.x + previous_x_change <= GRAPH_LENGTH and graph[node.y + previous_y_change][node.x + previous_x_change].type != "wall":
                 nodes.append((graph[node.y + previous_y_change][node.x + previous_x_change], 1))
 
         except IndexError:
             pass
 
-        if abs(previous_x_change) + abs(previous_y_change) == 1:
-            if abs(previous_x_change) + abs(previous_y_change) == 1:
-                if previous_x_change != 0:
-                    change = previous_x_change
+        if abs(previous_x_change + previous_y_change) == 1:
+            if previous_x_change != 0:
+                change = previous_x_change
 
-                    if 0 <= node.y - change <= GRAPH_HEIGHT - 1 and 0 <= node.x + change <= GRAPH_LENGTH - 1 and graph[node.y - change][node.x + change].type != "wall":
-                        nodes.append((graph[node.y - change][node.x + change], DIAGONAL_DISTANCE))
+                if 0 <= node.y - change <= GRAPH_HEIGHT - 1 and 0 <= node.x + change <= GRAPH_LENGTH - 1 and graph[node.y - change][node.x + change].type != "wall":
+                    nodes.append((graph[node.y - change][node.x + change], DIAGONAL_DISTANCE))
 
-                    if 0 <= node.y + change <= GRAPH_HEIGHT - 1 and 0 <= node.x + change <= GRAPH_LENGTH - 1 and graph[node.y + change][node.x + change].type != "wall":
-                        nodes.append((graph[node.y + change][node.x + change], DIAGONAL_DISTANCE))
+                if 0 <= node.y + change <= GRAPH_HEIGHT - 1 and 0 <= node.x + change <= GRAPH_LENGTH - 1 and graph[node.y + change][node.x + change].type != "wall":
+                    nodes.append((graph[node.y + change][node.x + change], DIAGONAL_DISTANCE))
 
-                else:
-                    change = previous_y_change
+            else:
+                change = previous_y_change
 
-                    if 0 <= node.y + change <= GRAPH_HEIGHT - 1 and 0 <= node.x - change <= GRAPH_LENGTH - 1 and graph[node.y + change][node.x - change].type != "wall":
-                        nodes.append((graph[node.y + change][node.x - change], DIAGONAL_DISTANCE))
+                if 0 <= node.y + change <= GRAPH_HEIGHT - 1 and 0 <= node.x - change <= GRAPH_LENGTH - 1 and graph[node.y + change][node.x - change].type != "wall":
+                    nodes.append((graph[node.y + change][node.x - change], DIAGONAL_DISTANCE))
 
-                    if 0 <= node.y + change <= GRAPH_HEIGHT - 1 and 0 <= node.x + change <= GRAPH_LENGTH - 1 and graph[node.y + change][node.x + change].type != "wall":
-                        nodes.append((graph[node.y + change][node.x + change], DIAGONAL_DISTANCE))
+                if 0 <= node.y + change <= GRAPH_HEIGHT - 1 and 0 <= node.x + change <= GRAPH_LENGTH - 1 and graph[node.y + change][node.x + change].type != "wall":
+                    nodes.append((graph[node.y + change][node.x + change], DIAGONAL_DISTANCE))
 
         else:
             if 0 <= node.x + previous_x_change <= GRAPH_LENGTH - 1 and graph[node.y][node.x + previous_x_change].type != "wall":
