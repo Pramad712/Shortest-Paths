@@ -6,6 +6,7 @@ def main():
     while True:
         window = pygame.display.set_mode((LENGTH, HEIGHT))
         window.fill(EMPTY_COLOR)
+        pygame.display.set_caption("Shortest Paths Using A*")
 
         graph = create_graph()
         draw_graph(window, graph)
