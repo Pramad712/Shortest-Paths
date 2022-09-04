@@ -12,7 +12,7 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 ### • All other bugs and issues would be due to one of my dependencies (I didn't find any of these before).
 
 # Example Solve
-
+<img width="607" alt="image" src="https://user-images.githubusercontent.com/77818951/188323336-15f172a7-cf31-4e22-93c4-c634a45b8970.png">
 
 
 ## Key:
