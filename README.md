@@ -32,4 +32,4 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 ### Length: A decimal/integer that shows the distance between the shortest path between the start and end nodes that avoids the walls. Going one unit north, east, south, or west has a distance of one, but going one unit north-east, north-west, south-east, or south-west has a cost of sqrt(2).
 
 # Improvements
-## • Use better hueristics to increase accuracy
+### • Use better hueristics to increase accuracy
