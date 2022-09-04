@@ -22,7 +22,7 @@ def main():
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
 
-                    if LEFT_OFFSET < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET < y < HEIGHT - BOTTOM_OFFSET:
+                    if LEFT_OFFSET + 1 < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET + 1 < y < HEIGHT - BOTTOM_OFFSET:
                         row, column = (y - TOP_OFFSET) // NODE_HEIGHT, (x - LEFT_OFFSET) // NODE_LENGTH
 
                         start_node = graph[row][column]
@@ -43,7 +43,7 @@ def main():
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
 
-                    if LEFT_OFFSET < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET < y < HEIGHT - BOTTOM_OFFSET:
+                    if LEFT_OFFSET + 1 < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET + 1 < y < HEIGHT - BOTTOM_OFFSET:
                         row, column = (y - TOP_OFFSET) // NODE_HEIGHT, (x - LEFT_OFFSET) // NODE_LENGTH
 
                         if graph[row][column].type != "start":
@@ -67,7 +67,7 @@ def main():
                 elif event.type == pygame.MOUSEBUTTONDOWN or mouse_motion_on and event.type == pygame.MOUSEMOTION:
                     x, y = event.pos
 
-                    if LEFT_OFFSET < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET < y < HEIGHT - BOTTOM_OFFSET:
+                    if LEFT_OFFSET + 1 < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET + 1 < y < HEIGHT - BOTTOM_OFFSET:
                         row, column = (y - TOP_OFFSET) // NODE_HEIGHT, (x - LEFT_OFFSET) // NODE_LENGTH
 
                         if graph[row][column].type not in ["start", "end"]:
