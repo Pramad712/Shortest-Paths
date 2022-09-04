@@ -9,8 +9,6 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 # Bugs
 ### • Since A* uses hueristics, **it does not guarantee the shortest path**. 
 
-### • If there is no path, then the program would take a really long time to run. This is because it would have to brute-force all paths to find a working solution, becoming as slow as Djikstra's algorithm.
-
 ### • All other bugs would be due to one of my dependencies (I didn't find any of these before).
 
 # Example Solve
