@@ -11,6 +11,9 @@ Finds the shortest path on a grid between two nodes (given by the user). The use
 
 ### • All other bugs and issues would be due to one of my dependencies (I didn't find any of these before).
 
+# How to play
+First, you choose a start cell by clicking on the 40x35 grid. You then click on the end cell of the grid that isn't the start node. Finally, you draw some walls/obstacles on the grid. If you make a mistake, then click on the "d" key on your keyboard to enter delete mode. Click on any wall, and it would be replaced by a empty cell; click on "d" key again to enter draw mode. When you are done, press the "Done" button at the bottom of the screen. The application will find the shortest path between the start and end cells, and mark it as shown below. After that, you may press the "Restart" button.
+
 # Example Solve
 <img width="607" alt="image" src="https://user-images.githubusercontent.com/77818951/188323336-15f172a7-cf31-4e22-93c4-c634a45b8970.png">
 
