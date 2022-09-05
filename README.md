@@ -19,17 +19,17 @@ First, you choose a start node by clicking on a cell of the 40x35 grid. Then cho
 
 ## Key:
 
-### Green: Start Position
+### Green: Start Cell
 
-### Red: End Position
+### Red: End Cell
 
-### Gold: Wall
+### Gold: Walls
 
 ### Orange: Nodes that the program processed, but aren't in the shortest path.
 
 ### Blue: Nodes that are in the shortest path.
 
-### Length: A decimal/integer that shows the distance between the shortest path between the start and end nodes that avoids the walls. Going one unit north, east, south, or west has a distance of one, but going one unit north-east, north-west, south-east, or south-west has a cost of sqrt(2).
+### Length: A decimal/integer that shows the size of the shortest path between the start and end nodes. Going in a cardinal direction one unit has a distance of one, but going one unit intercardinally has a cost of sqrt(2).
 
 # Improvements
 ### • Use better hueristics to increase accuracy
