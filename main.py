@@ -57,12 +57,15 @@ def main():
         button = draw_button(window, "Done!")
 
         write_instruction(window, "Draw the Walls", "wall")
-        done, mouse_motion_on = False, False
+        done, mouse_motion_on, draw = False, False, True
 
         while not done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
+
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_d:
+                    draw = not draw
 
                 elif event.type == pygame.MOUSEBUTTONDOWN or mouse_motion_on and event.type == pygame.MOUSEMOTION:
                     x, y = event.pos
@@ -70,8 +73,11 @@ def main():
                     if LEFT_OFFSET + 1 < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET + 1 < y < HEIGHT - BOTTOM_OFFSET:
                         row, column = (y - TOP_OFFSET) // NODE_HEIGHT, (x - LEFT_OFFSET) // NODE_LENGTH
 
-                        if graph[row][column].type not in ["start", "end"]:
+                        if draw and graph[row][column].type not in ["start", "end"]:
                             graph[row][column].type = "wall"
+
+                        if not draw and graph[row][column].type == "wall":
+                            graph[row][column].type = "cell"
 
                     mouse_motion_on = True
 
