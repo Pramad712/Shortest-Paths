@@ -47,8 +47,6 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
             for _ in range(index + 1, index_2):
                 del path[index + 1]
 
-        return path
-
     def next_nodes(previous_node: Node, node: Node):
         # Uses JPS (Jump Point Search), but no jumping because this is just for adjacency,
         if previous_node is None:
