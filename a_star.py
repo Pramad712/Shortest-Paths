@@ -1,9 +1,43 @@
 from sys import setrecursionlimit
 from math import ceil
-from constants import GRAPH_LENGTH, GRAPH_HEIGHT, DIAGONAL_DISTANCE
-from graph import Node, draw_node
+from constants import GRAPH_LENGTH, GRAPH_HEIGHT, DIAGONAL_DISTANCE, pygame
+from graph import Node, draw_node, draw_path
 
 def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
+    def remove_unnecessary(path: list[Node]) -> list[Node]:
+        def adjacent(node: Node, node_2: Node) -> bool:
+            if node == node_2:
+                return False
+
+            for x_change in [-1, 0, 1]:
+                for y_change in [-1, 0, 1]:
+                    if Node(x=node.x + x_change, y=node.y + y_change, type=node_2.type) == node_2:
+                        return True
+
+            return False
+
+        print(path[0], path[1])
+
+        while True:
+            exit_loop = False
+
+            for index, node in enumerate(path.copy()):
+                for index_2, node_2 in enumerate(path[index: ].copy()):
+                    if index_2 != 1 and adjacent(node, node_2):
+                        exit_loop = True
+                        break
+
+                if exit_loop:
+                    break
+
+            if not exit_loop:
+                break
+
+            for _ in range(index + 1, index_2):
+                del path[index + 1]
+
+        return path
+
     def next_nodes(previous_node: Node, node: Node):
         # Uses JPS (Jump Point Search), but no jumping because this is just for adjacency,
         if previous_node is None:
@@ -78,6 +112,9 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
             if 0 <= node.x + previous_x_change <= GRAPH_HEIGHT - 1 and graph[previous_node.y][node.x].type == "wall" and graph[previous_node.y][node.x + previous_x_change].type != "wall":
                 nodes.append((graph[previous_node.y][node.x + previous_x_change], DIAGONAL_DISTANCE))
 
+        if previous_node in nodes:
+            nodes.remove(previous_node)
+
         return nodes
 
     setrecursionlimit(2 ** 31 - 1)
@@ -124,7 +161,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
         distances = []
 
         for adjacent_node, edge_weight in next_nodes(previous_node, node):
-            if (adjacent_node in visited) or (weight + edge_weight >= minimum_path_per_node.get(adjacent_node)):
+            if adjacent_node in visited or (weight + edge_weight >= minimum_path_per_node.get(adjacent_node)):
                 continue
 
             current_heuristic = heuristic(adjacent_node)
@@ -144,6 +181,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
     found = a_star(None, start_node, set(), [])
 
     if found:
+        best_path = remove_unnecessary(best_path)
         return best_path, minimum_path_per_node[end_node]
 
     else:
