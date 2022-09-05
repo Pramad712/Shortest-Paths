@@ -104,3 +104,5 @@ def draw_node(window: pygame.Surface, node: Node, color: tuple[int] = PROCESSING
 def draw_path(window: pygame.Surface, path: list[list[Node], int]):
     for node in path[0][1: -1]: # We want to ignore the total edge weight and the start and end positions.
         draw_node(window, node, PATH_COLOR)
+
+    pygame.display.update()
