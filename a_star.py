@@ -1,10 +1,23 @@
 from sys import setrecursionlimit
-from math import ceil
-from constants import GRAPH_LENGTH, GRAPH_HEIGHT, DIAGONAL_DISTANCE, pygame
-from graph import Node, draw_node, draw_path
+from math import ceil, sqrt
+from constants import GRAPH_LENGTH, GRAPH_HEIGHT, DIAGONAL_DISTANCE
+from graph import Node, draw_node
 
 def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
-    def remove_unnecessary(path: list[Node]) -> list[Node]:
+    def distance(path: list[Node]) -> float:
+        result = 0
+
+        for node, next_node in zip(path[: -1], path[1: ]):
+            increment = sqrt(abs(next_node.x - node.x) ** 2 + abs(next_node.y - node.y) ** 2)
+
+            if increment % 1 == 0:
+                increment = int(increment)
+
+            result += increment
+
+        return result
+
+    def remove_unnecessary(path: list[Node]):
         def adjacent(node: Node, node_2: Node) -> bool:
             if node == node_2:
                 return False
@@ -15,8 +28,6 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
                         return True
 
             return False
-
-        print(path[0], path[1])
 
         while True:
             exit_loop = False
@@ -181,8 +192,8 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
     found = a_star(None, start_node, set(), [])
 
     if found:
-        best_path = remove_unnecessary(best_path)
-        return best_path, minimum_path_per_node[end_node]
+        remove_unnecessary(best_path)
+        return best_path, distance(best_path)
 
     else:
         return "INVALID"
