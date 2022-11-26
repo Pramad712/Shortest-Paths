@@ -102,7 +102,7 @@ def main():
             write_instruction(window, "No Path Found")
 
         else:
-            write_instruction(window, f"Path Found! Length: {path[1]}")
+            write_instruction(window, f"Path Found! Length: {path[1]} Units")
             draw_path(window, path)
 
         button = draw_button(window, "Restart")
