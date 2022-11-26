@@ -29,7 +29,7 @@ First, you choose a start node by clicking on a cell of the 40x35 grid. Then cho
 
 ### Blue: Nodes that are in the shortest path.
 
-### Length: A decimal/integer that shows the size of the shortest path between the start and end nodes. Going in a cardinal direction one unit has a distance of one, but going one unit intercardinally has a cost of sqrt(2).
+### Length: A decimal/integer that shows the size of the shortest path between the start and end nodes. Going in a cardinal direction one unit has a distance of one, but going one unit intercardinally has a cost of sqrt(2), which python evaluates to 1.4142135623730951.
 
 # Improvements
 ### • Use better hueristics to increase accuracy
