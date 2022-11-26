@@ -11,6 +11,8 @@ This application finds the shortest path on a grid between two nodes given by th
 
 ### • All other bugs and issues would be due to one of my dependencies. For example, pygame sometimes does not display the path even though the display is updated and the x and y coordinates are in bounds.
 
+### • Since python (and pygame) are slow, if you move your mouse too fast when drawing the walls, not all squares will be drawn in gold.
+
 # How to play
 First, you choose a start node by clicking on a cell of the 40x35 grid. Then choose the end node other than the start. Finally, you draw some walls/obstacles on the grid. If you make a mistake, then click on the "d" key on your keyboard to enter delete mode. Click on any cell that is a wall, and it would be replaced by an empty cell; click on the "d" key again to enter draw mode. When you are done, press the "Done" button at the bottom of the screen. The application will find the shortest path between the start and end cells, and mark it as shown below. It may take a few seconds because it uses a slow computation to simplify the path. After that, you may press the "Restart" button.
 
