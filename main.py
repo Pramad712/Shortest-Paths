@@ -11,7 +11,7 @@ def main():
         graph = create_graph()
         draw_graph(window, graph)
 
-        write_instruction(window, "Click on the Start Position", "start")
+        write_instruction(window, "Select the Start Position", "start")
         start_node = None
 
         while start_node is None:
@@ -32,7 +32,7 @@ def main():
 
             draw_graph(window, graph)
 
-        write_instruction(window, "Click on the End Position", "end")
+        write_instruction(window, "Select the End Position", "end")
         end_node = None
 
         while end_node is None:
