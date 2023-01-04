@@ -36,4 +36,7 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 # Improvements
 ### • Use better hueristics to increase accuracy
 
+
+
+
 Note: Edits will be made over time, first upload was on August 16, 2022.
