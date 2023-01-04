@@ -9,7 +9,7 @@ This application finds the shortest path on a grid between two nodes given by th
 # Bugs and Issues
 ### • Since A* uses hueristics, *it does not guarantee the shortest path*. 
 
-### • All other bugs and issues would be due to one of my dependencies. For example, pygame sometimes does not display the path even though the display is updated and the x and y coordinates are in bounds.
+### • All other bugs and issues would be due to one of my dependencies. For example, pygame sometimes does not display the path even though the display is updated and the x and y coordinates are in bounds. It may even freeze the screen.
 
 ### • Since python (and pygame) are slow, if you move your mouse too fast when drawing the walls, not all squares will be drawn in gold.
 
