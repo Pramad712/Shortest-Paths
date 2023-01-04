@@ -1,5 +1,5 @@
 # Shortest Paths with A*
-This application finds the shortest path on a grid between two nodes given by the user. The user also puts walls/obstacles which the path can not go through (but can go in between them ...).
+This application finds the shortest path on a grid between two nodes given by the user. The user also puts walls/obstacles which the path can not go through (but can go in between ...).
 
 ## Dependencies (latest version as of when this project was created)
 ### • Python 3.10
