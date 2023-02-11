@@ -19,7 +19,7 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 ## Example Solve
 ![pathfinding_algorithms_project_example_solve](https://user-images.githubusercontent.com/77818951/210642450-f8232aff-7005-4a3c-8ef6-2e218d491095.png)
 
-### Key:
+## Key:
 
 ### Green: Start Cell
 
