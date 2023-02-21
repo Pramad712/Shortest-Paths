@@ -71,7 +71,7 @@ def main():
                     x, y = event.pos
 
                     if LEFT_OFFSET + 1 < x < LENGTH - RIGHT_OFFSET and TOP_OFFSET + 1 < y < HEIGHT - BOTTOM_OFFSET:
-                        row, column = (y - TOP_OFFSET) // NODE_HEIGHT, (x - LEFT_OFFSET) // NODE_LENGTH
+                        row, column = (y - TOP_OFFSET - 1) // NODE_HEIGHT, (x - LEFT_OFFSET - 1) // NODE_LENGTH
 
                         if draw and graph[row][column].type not in ["start", "end"]:
                             graph[row][column].type = "wall"
@@ -104,6 +104,7 @@ def main():
         else:
             write_instruction(window, f"Path Found! Length: {path[1]} Units")
             draw_path(window, path)
+            pygame.display.update()
 
         button = draw_button(window, "Restart")
         done = False
