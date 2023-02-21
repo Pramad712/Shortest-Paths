@@ -1,4 +1,4 @@
-from math import sqrt
+from math import ceil, sqrt
 import pygame
 
 LENGTH, HEIGHT = 810, 800
@@ -9,8 +9,7 @@ BOTTOM_OFFSET, TOP_OFFSET = 50, 50
 GRAPH_LENGTH, GRAPH_HEIGHT = 40, 35
 DIAGONAL_DISTANCE = sqrt(2)
 
-NODE_LENGTH, NODE_HEIGHT = (LENGTH - LEFT_OFFSET - RIGHT_OFFSET) // GRAPH_LENGTH, (HEIGHT - TOP_OFFSET - BOTTOM_OFFSET)\
-                                                                                   // GRAPH_HEIGHT
+NODE_LENGTH, NODE_HEIGHT = ceil((LENGTH - LEFT_OFFSET - RIGHT_OFFSET) / GRAPH_LENGTH), ceil((HEIGHT - TOP_OFFSET - BOTTOM_OFFSET) / GRAPH_HEIGHT)
 
 BUTTON_LENGTH, BUTTON_HEIGHT = 120, 32
 
