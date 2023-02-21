@@ -14,7 +14,7 @@ NODE_LENGTH, NODE_HEIGHT = ceil((LENGTH - LEFT_OFFSET - RIGHT_OFFSET) / GRAPH_LE
 BUTTON_LENGTH, BUTTON_HEIGHT = 120, 32
 
 EMPTY_COLOR = (0, 0, 0) # Black
-CELL_COLOR = (0, 0, 0)  # Cyan
+CELL_COLOR = (0, 0, 0)  # Black
 WALL_COLOR = (255, 180, 40)  # Gold
 START_COLOR, END_COLOR = (0, 255, 0), (255, 0, 0)  # Green and Red respectively
 
