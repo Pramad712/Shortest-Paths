@@ -7,7 +7,7 @@ This application finds the shortest path on a grid between two nodes given by th
 ### • Pygame 2.1 to make the GUI.
 
 ## Bugs and Issues
-### • Since A* uses hueristics, *the true shortest path is not guaranteed*.
+### • Since A* uses hueristics, *the true shortest path is not guaranteed*. Think of google maps, it doesn't always give the best route to your destination, especially when you are traveling long distances. You have to use your personal experience to get there the fastest.
 
 ### • All other bugs and issues would be due to one of my dependencies. For example, pygame sometimes does not display the path even though the display is updated and the x and y coordinates are in bounds. It may even freeze the screen.
 
