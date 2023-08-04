@@ -94,15 +94,14 @@ def main():
 
             draw_graph(window, graph)
 
-        clear_button(window)
 
-        path = solve(window, graph, start_node, end_node)
+        path, distance = solve(window, graph, start_node, end_node)
 
         if path == "INVALID":
             write_instruction(window, "No Path Found")
 
         else:
-            write_instruction(window, f"Path Found! Length: {path[1]} Units")
+            write_instruction(window, f"Path Found! Length: {distance} Units")
             draw_path(window, path)
             pygame.display.update()
 
