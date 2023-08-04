@@ -1,20 +1,30 @@
 import pygame
-from types import SimpleNamespace
+from typing import Any
+from dataclasses import dataclass, field
 from constants import *
 
-class Node(SimpleNamespace):
+@dataclass
+class Node:
     x: int
     y: int
     type: str
 
-    def __eq__(self, other):
-        return self.__hash__() == other.__hash__()
-
     def __hash__(self):
         return hash((self.x, self.y, self.type))
 
+@dataclass(order=True)
+class NodePathData:
+    node: Node = field(compare=False)
+    from_: Any = field(compare=False) # Actually it's NodePathData, but Any is used to avoid self-referencing
+    distance_traveled: int | float = field(compare=False)
+    total_distance: int | float
+    intercardinal_count: int = field(compare=False, default=0)
+
+    def __hash__(self):
+        return hash((self.node, self.from_, self.distance_traveled, self.total_distance, self.intercardinal_count))
+
 def create_graph():
-    return [[Node(x=x, y=y, type="cell") for x in range(GRAPH_LENGTH)] for y in range(GRAPH_HEIGHT)]
+    return [[Node(x, y, "cell") for x in range(GRAPH_LENGTH)] for y in range(GRAPH_HEIGHT)]
 
 def draw_graph(window: pygame.Surface, graph: list[list[Node]]):
     for row_index, row in enumerate(graph):
@@ -102,7 +112,7 @@ def draw_node(window: pygame.Surface, node: Node, color: tuple[int] = PROCESSING
     pygame.display.update()
 
 def draw_path(window: pygame.Surface, path: list[list[Node], int]):
-    for node in path[0][1: -1]: # We want to ignore the total edge weight and the start and end positions.
+    for node in path[1: -1]: # We want to ignore the total edge weight and the start and end positions.
         draw_node(window, node, PATH_COLOR)
 
     pygame.display.update()
