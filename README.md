@@ -17,7 +17,7 @@ This application finds the shortest path on a grid between two nodes given by th
 First, choose a start and end node by clicking on two unique cells of the 40x35 grid. Draw some walls/obstacles on the grid, pressing the "d" key on your keyboard to change from "draw" to "delete" mode or vice versa. When finished, press the "Done" button at the bottom of the screen. The application will find the shortest path between the start and end cells marked as shown below. It may take a few seconds because it uses a slow computation to simplify the path. Press the "Restart" button if you want to play again, or exit by pressing the "X" button on the top-right corner of your screen.
 
 # Example Solve
-![pathfinding_algorithms_project_example_solve](https://user-images.githubusercontent.com/77818951/210642450-f8232aff-7005-4a3c-8ef6-2e218d491095.png)
+<img width="810" alt="Screenshot 2023-08-04 at 4 34 06 PM" src="https://github.com/Pramad712/Shortest-Paths/assets/77818951/837fcc01-c407-4ccc-86f9-ad9ffcb1c957">
 
 ## Key:
 
@@ -31,7 +31,7 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 
 ### Blue: Nodes that are in the shortest path.
 
-### Length: A decimal/integer that shows the size of the shortest path between the start and end nodes. Going one unit in a cardinal direction has a distance of one, but going one unit intercardinally has a cost of sqrt(2) (1.4142135623730951 according to python).
+### Length: The first phrase is "Path Found!" or "No Path Found" depending on if there is a path between the two nodes. If there one, then the next phrase will be in the form {cardinal movement count} + {intercardinal movement count}{diagonal distance = √2} ≈ {total distance rounded to the nearest thousandth}. Note that moving one unit in a cardinal direction is one unit, and the square root of two units for moving one unit intercardinally.
 
 ## Improvements
 ### • Use better hueristics to increase accuracy
