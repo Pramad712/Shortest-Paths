@@ -1,10 +1,11 @@
-from sys import setrecursionlimit
 from math import ceil, sqrt
-from constants import GRAPH_LENGTH, GRAPH_HEIGHT, DIAGONAL_DISTANCE
-from graph import Node, draw_node
+from collections import deque
+from priority_queue import PriorityQueue
+from constants import GRAPH_LENGTH, GRAPH_HEIGHT, DIAGONAL_DISTANCE, DIAGONAL_DISTANCE_REPR
+from graph import Node, NodePathData, draw_node
 
 def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
-    def distance(path: list[Node]) -> float:
+    def distance(path: list[Node], intercardinal_count) -> str:
         result = 0
 
         for node, next_node in zip(path[: -1], path[1: ]):
@@ -15,37 +16,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
 
             result += increment
 
-        return result
-
-    def remove_unnecessary(path: list[Node]):
-        def adjacent(node: Node, node_2: Node) -> bool:
-            if node == node_2:
-                return False
-
-            for x_change in [-1, 0, 1]:
-                for y_change in [-1, 0, 1]:
-                    if Node(x=node.x + x_change, y=node.y + y_change, type=node_2.type) == node_2:
-                        return True
-
-            return False
-
-        while True:
-            exit_loop = False
-
-            for index, node in enumerate(path.copy()):
-                for index_2, node_2 in enumerate(path[index: ].copy()):
-                    if index_2 != 1 and adjacent(node, node_2):
-                        exit_loop = True
-                        break
-
-                if exit_loop:
-                    break
-
-            if not exit_loop:
-                break
-
-            for _ in range(index + 1, index_2):
-                del path[index + 1]
+        return f"{len(path) - 1 - intercardinal_count} + {intercardinal_count}{DIAGONAL_DISTANCE_REPR} ≈ {result:.3f}"
 
     def next_nodes(previous_node: Node, node: Node):
         # Uses JPS (Jump Point Search), but no jumping because this is just for adjacency,
@@ -84,7 +55,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
 
         try:
             if 0 <= node.y + previous_y_change <= GRAPH_HEIGHT and 0 <= node.x + previous_x_change <= GRAPH_LENGTH and graph[node.y + previous_y_change][node.x + previous_x_change].type != "wall":
-                nodes.append((graph[node.y + previous_y_change][node.x + previous_x_change], 1))
+                nodes.append((graph[node.y + previous_y_change][node.x + previous_x_change], 1 if abs(previous_x_change + previous_y_change) == 1 else DIAGONAL_DISTANCE))
 
         except IndexError:
             pass
@@ -121,77 +92,38 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
             if 0 <= node.x + previous_x_change <= GRAPH_HEIGHT - 1 and graph[previous_node.y][node.x].type == "wall" and graph[previous_node.y][node.x + previous_x_change].type != "wall":
                 nodes.append((graph[previous_node.y][node.x + previous_x_change], DIAGONAL_DISTANCE))
 
-        if previous_node in nodes:
-            nodes.remove(previous_node)
-
         return nodes
-
-    setrecursionlimit(2 ** 31 - 1)
-
-    minimum_path_per_node = {node: float("inf") for row in graph for node in row}
-    minimum_path_per_node[start_node] = float("nan")
-
-    visited = set()
-    best_path = []
 
     def heuristic(node: Node):
         # Octile Distance with tie-breaker of 1 + 1/{graph size/2} (super small to avoid over-estimating)
         x_distance, y_distance = abs(end_node.x - node.x), abs(end_node.y - node.y)
         return (x_distance + y_distance + (DIAGONAL_DISTANCE - 2) * min(x_distance, y_distance)) * (1 + 1/ceil((GRAPH_LENGTH * GRAPH_HEIGHT)/2))
 
-    def a_star(previous_node: Node, node: Node, path: set[Node], path_list: list[Node], weight: int = None):
-        nonlocal minimum_path_per_node
-        nonlocal visited
+    priority_queue = PriorityQueue()
+    priority_queue.add(NodePathData(start_node, None, 0, float("inf")))
 
-        visited.add(node)
+    try:
+        while (current_node := priority_queue.pop()).node != end_node:
+            if current_node.node != start_node:
+                draw_node(window, current_node.node)
 
-        path = path.copy()
-        path.add(node)
+            previous = None if current_node.from_ is None else current_node.from_.node
 
-        path_list = path_list.copy()
-        path_list.append(node)
+            for adjacent_node, edge_distance in next_nodes(previous, current_node.node):
+                priority_queue.add(NodePathData(adjacent_node, current_node, current_node.distance_traveled + edge_distance,
+                                                current_node.distance_traveled + edge_distance + heuristic(adjacent_node),
+                                                current_node.intercardinal_count + (edge_distance == DIAGONAL_DISTANCE)))
 
-        if weight is not None:
-            minimum_path_per_node[node] = min(minimum_path_per_node[node], weight)
+    except KeyError:
+        return "INVALID", float("inf")
 
-        if node == end_node:
-            nonlocal best_path
-            best_path = path_list.copy()
+    path = deque([current_node.node])
+    node = current_node
 
-            return True
+    while node.from_ is not None:
+        path.appendleft(node.from_.node)
+        node = node.from_
 
-        # Comment out the following two lines if you don't want to see the explored nodes that aren't in the path.
-        if weight is not None:
-            draw_node(window, node)
+    path = list(path)
 
-        if weight is None:
-            weight = 0
-
-        distances = []
-
-        for adjacent_node, edge_weight in next_nodes(previous_node, node):
-            if adjacent_node in visited or (weight + edge_weight >= minimum_path_per_node.get(adjacent_node)):
-                continue
-
-            current_heuristic = heuristic(adjacent_node)
-            distances.append((edge_weight, current_heuristic, adjacent_node))
-
-        distances.sort(key=lambda distance: distance[0] + distance[1])
-
-        for edge_weight, _, adjacent_node in distances:
-            if adjacent_node in visited:
-                continue
-
-            found = a_star(node, adjacent_node, path, path_list, weight + edge_weight)
-
-            if found:
-                return True
-
-    found = a_star(None, start_node, set(), [])
-
-    if found:
-        remove_unnecessary(best_path)
-        return best_path, distance(best_path)
-
-    else:
-        return "INVALID"
+    return path, distance(path, current_node.intercardinal_count)
