@@ -34,4 +34,4 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 ## Edit History
 ### • August 16, 2022: First release, with a few bugs and doesn't guarantee the shortest path due to a recursive approach.
 ### • Until next release: Many bug fixes
-### • August 4, 2023: An iterative approach is implemented using a priority queue and guarentees the shortest path. However, since the original approach picked the node that will minimized the heuristic and never looked back (unless if no path is found), the new approach is slower by at most a couple seconnds. The output format also changed (see the key above).
+### • August 4, 2023: An iterative approach is implemented using a priority queue and guarentees the shortest path. However, since the original approach picked the node that will minimized the heuristic and never looked back (unless if no path is found), the new approach is slower by at most a couple seconds. The output format also changed (see the key above).
