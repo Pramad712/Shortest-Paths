@@ -7,7 +7,7 @@ This application finds the shortest path on a grid between two nodes given by th
 ### • Pygame 2.1 to make the GUI.
 
 ## Bugs and Issues
-### • Due to A*'s worst case scenario of O(b^d) (where b is the branching factor d is the length of the shortest path), the application is slow in complex grids (like the one below).
+### • Due to A*'s worst case scenario of O(b^d) (where b is the branching factor d is the length of the shortest path), the application is (relatively) slow in complex grids (like the one below).
 ### • Since python (and pygame) are slow, if you move your mouse too fast when drawing the walls, not all squares will be drawn in gold.
 ### • If you find any other problems or know how to fix one of these issues, please put your comments in the issues page or submit a pull request.
 
