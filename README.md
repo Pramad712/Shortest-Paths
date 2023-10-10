@@ -32,6 +32,6 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 ### Length: The first phrase is "Path Found!" or "No Path Found" depending on if there is a path between the two nodes. If there one, then the next phrase will be in the form {cardinal movement count} + {intercardinal movement count}{diagonal distance = √2} ≈ {total distance rounded to the nearest thousandth}. Note that moving one unit in a cardinal direction is one unit, and the square root of two units for moving one unit intercardinally.
 
 ## Edit History
-### • August 16, 2022: First release, with a few bugs and doesn't guarantee the shortest path due to a recursive approach.
+### • August 16, 2022: First release, with a few bugs and doesn't guarantee the shortest path due to a recursive backtracking-like approach.
 ### • Until next release: Many bug fixes
-### • August 4, 2023: An iterative approach is implemented using a priority queue and guarentees the shortest path. However, since the original approach picked the node that will minimize the heuristic and never looked back (unless if no path is found), the new approach is slower by at most a couple seconds. The output format also changed (see the key above).
+### • August 4, 2023: An iterative approach is implemented using a priority queue and guarentees the shortest path. However, since the original approach picked the node that will minimize the heuristic and never looked back (unless if no path was found), the new approach usually slower by at most a couple seconds. The output format also changed (see the key above).
