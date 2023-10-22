@@ -1,7 +1,8 @@
-import pygame
 from typing import Any
 from dataclasses import dataclass, field
+import time
 from constants import *
+import pygame
 
 @dataclass
 class Node:
@@ -23,7 +24,7 @@ class NodePathData:
     def __hash__(self):
         return hash((self.node, self.from_, self.distance_traveled, self.total_distance, self.intercardinal_count))
 
-def create_graph():
+def create_graph() -> list[list[Node]]:
     return [[Node(x, y, "cell") for x in range(GRAPH_LENGTH)] for y in range(GRAPH_HEIGHT)]
 
 def draw_graph(window: pygame.Surface, graph: list[list[Node]]):
@@ -92,7 +93,7 @@ def clear_message(window: pygame.Surface):
     pygame.draw.rect(window, EMPTY_COLOR, pygame.Rect((0, 0), (LENGTH, TOP_OFFSET)))
     pygame.display.update()
 
-def draw_button(window: pygame.Surface, text: str):
+def draw_button(window: pygame.Surface, text: str) -> pygame.Rect:
     button = pygame.Rect(((LENGTH - BUTTON_LENGTH) // 2, HEIGHT - BOTTOM_OFFSET // 2 - BUTTON_HEIGHT // 2), (BUTTON_LENGTH, BUTTON_HEIGHT))
     pygame.draw.rect(window, BUTTON_COLOR, button)
 
@@ -107,12 +108,15 @@ def clear_button(window: pygame.Surface):
     pygame.draw.rect(window, EMPTY_COLOR, pygame.Rect((0, HEIGHT - BOTTOM_OFFSET + 1), (LENGTH, BOTTOM_OFFSET - 1)))  # The 1 excludes the line on the bottom of the graph.
     pygame.display.update()
 
-def draw_node(window: pygame.Surface, node: Node, color: tuple[int] = PROCESSING_NODE_COLOR):
+def draw_node(window: pygame.Surface, node: Node, color: tuple[int] = PROCESSING_NODE_COLOR, wait=True):
     pygame.draw.rect(window, color, pygame.Rect((LEFT_OFFSET + node.x * NODE_LENGTH, TOP_OFFSET + node.y * NODE_HEIGHT), (NODE_LENGTH, NODE_HEIGHT)))
     pygame.display.update()
 
+    if wait:
+        time.sleep(0.01)
+
 def draw_path(window: pygame.Surface, path: list[list[Node], int]):
     for node in path[1: -1]: # We want to ignore the total edge weight and the start and end positions.
-        draw_node(window, node, PATH_COLOR)
+        draw_node(window, node, PATH_COLOR, False)
 
     pygame.display.update()
