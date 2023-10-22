@@ -18,7 +18,7 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
 
         return f"{len(path) - 1 - intercardinal_count} + {intercardinal_count}{DIAGONAL_DISTANCE_REPR} ≈ {result:.3f}"
 
-    def next_nodes(previous_node: Node, node: Node):
+    def next_nodes(previous_node: Node, node: Node) -> list[Node]:
         # Uses JPS (Jump Point Search), but no jumping because this is just for adjacency,
         if previous_node is None:
             nodes = []
@@ -94,12 +94,14 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
 
         return nodes
 
-    def heuristic(node: Node):
+    def heuristic(node: Node) -> int:
         # Octile Distance with tie-breaker of 1 + 1/{graph size/2} (super small to avoid over-estimating)
         x_distance, y_distance = abs(end_node.x - node.x), abs(end_node.y - node.y)
         return (x_distance + y_distance + (DIAGONAL_DISTANCE - 2) * min(x_distance, y_distance)) * (1 + 1/ceil((GRAPH_LENGTH * GRAPH_HEIGHT)/2))
 
     priority_queue = PriorityQueue()
+    visited_nodes = set()
+
     priority_queue.add(NodePathData(start_node, None, 0, float("inf")))
 
     try:
@@ -107,12 +109,13 @@ def solve(window, graph: list[list[Node]], start_node: Node, end_node: Node):
             if current_node.node != start_node:
                 draw_node(window, current_node.node)
 
-            previous = None if current_node.from_ is None else current_node.from_.node
+            visited_nodes.add(current_node.node)
 
-            for adjacent_node, edge_distance in next_nodes(previous, current_node.node):
-                priority_queue.add(NodePathData(adjacent_node, current_node, current_node.distance_traveled + edge_distance,
-                                                current_node.distance_traveled + edge_distance + heuristic(adjacent_node),
-                                                current_node.intercardinal_count + (edge_distance == DIAGONAL_DISTANCE)))
+            for adjacent_node, edge_distance in next_nodes(None if current_node.from_ is None else current_node.from_.node, current_node.node):
+                if adjacent_node not in visited_nodes:
+                    priority_queue.add(NodePathData(adjacent_node, current_node, current_node.distance_traveled + edge_distance,
+                                       current_node.distance_traveled + edge_distance + heuristic(adjacent_node),
+                                       current_node.intercardinal_count + (edge_distance == DIAGONAL_DISTANCE)))
 
     except KeyError:
         return "INVALID", float("inf")
