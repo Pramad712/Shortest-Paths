@@ -1,7 +1,7 @@
 from heapq import heappop, heappush
 from graph import Node, NodePathData
 
-# similar to https://docs.python.org/3.11/library/heapq.html, but modified for my implementation of A*
+# similar to https://docs.python.org/3.11/library/heapq.html, but modified for this implementation of A*
 
 class PriorityQueue:
     def __init__(self):
@@ -31,12 +31,12 @@ class PriorityQueue:
         self.remove(value)
         self.add(new_value)
 
-    def peek(self): # Will not be used in this project, but made just for completeness
+    def peek(self) -> NodePathData: # Will not be used in this project, but made just for completeness
         while self.heap:
-            first = self.heap[0]
+            extracted = self.heap[0]
 
-            if first.node is not None:
-                return first
+            if extracted.node is not None:
+                return extracted
 
             else:
                 # No remove from self.node_to_item necessary since the only way first.node is None is if self.remove() was called (line 24), in which the node is removed from self.node_to_item
@@ -44,7 +44,7 @@ class PriorityQueue:
 
         raise KeyError("Peeking into an empty priority queue")
 
-    def pop(self):
+    def pop(self) -> NodePathData:
         while self.heap:
             extracted = heappop(self.heap)
 
