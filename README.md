@@ -28,7 +28,7 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 
 ### Blue: Nodes that are in the shortest path.
 
-### Length: The first phrase is "Path Found!" or "No Path Found" depending on if there is a path between the two nodes. If there one, then the next phrase will be in the form {cardinal movement count} + {intercardinal movement count}{diagonal distance = √2} ≈ {total distance rounded to the nearest thousandth}. Note that moving one unit in a cardinal direction is one unit, and the square root of two units for moving one unit intercardinally.
+### Length: The first phrase is "Path Found!" or "No Path Found" depending on if there is a path between the two nodes. If there one, then the next phrase will be in the form {cardinal distance} + {intercardinal movements}{diagonal distance = √2} ≈ {distance rounded to the nearest thousandth}. Note that moving one unit in a cardinal direction is one unit, and the square root of two units for moving one unit intercardinally.
 
 ## Edit History
 ### • August 16, 2022: First release, with a few bugs and doesn't guarantee the shortest path due to a recursive backtracking-like approach.
