@@ -35,3 +35,5 @@ First, choose a start and end node by clicking on two unique cells of the 40x35 
 ### • Until next release: Many bug fixes
 ### • August 4, 2023: An iterative approach is implemented using a priority queue and guarentees the shortest path. However, since the original approach picked the node that will minimize the heuristic and never looked back (unless if no path was found), the new approach is usually slower by at most a couple seconds. The output format also changed (see the key above).
 ### • October 21, 2023: An insane performance improvement on very complicated inputs is done by implementing a set that stores all visited nodes. This prevents cycles by making sure the same node isn't processed. An small wait time is added so the user can see the order of the nodes processed in complicated graphs.
+
+### Credits to Amit Patel & Stanford for [an amazing website](https://theory.stanford.edu/~amitp/GameProgramming/) that I learned so much from. Without them, this wouldn't have been possible.
